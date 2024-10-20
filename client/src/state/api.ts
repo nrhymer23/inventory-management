@@ -49,7 +49,7 @@ export const api = createApi({
   tagTypes: ["DashboardMetrics"],
   endpoints: (build) => ({
     getDashboardMetrics: build.query<DashboardMetrics, void>({
-      query: () => "/dashbaord",
+      query: () => "/dashboard",
       providesTags: ["DashboardMetrics"],
     }),
   }),

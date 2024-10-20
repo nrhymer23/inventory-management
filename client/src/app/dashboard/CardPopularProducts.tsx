@@ -13,7 +13,24 @@ const CardPopularProducts = () => {
             Popular Products
           </h3>
           <hr />
-          <div className="overflow-auto h-full"></div>
+          <div className="overflow-auto h-full">
+            {dashboardMetrics?.popularProducts.map((product) => (
+              <div
+                key={product.productId}
+                className="flex items-center justify-between gap-3 px-5 py-7 border-b"
+              >
+                <div>img</div>
+                <div className="flex flex-col justify-between gap-1">
+                  <div className="font-bold text-gray-700">{product.name}</div>
+                  <div className="font text-sm items-center">
+                    <span className="font-bold text-blue-500 text-xs">
+                      ${product.price}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </>
       )}
     </div>
