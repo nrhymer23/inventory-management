@@ -29,6 +29,7 @@ const CardPurchaseSummary = () => {
               Purchase Summary
             </h2>
             <hr />
+            <hr />
           </div>
 
           {/* Body */}
