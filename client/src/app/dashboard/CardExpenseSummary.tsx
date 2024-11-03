@@ -125,7 +125,6 @@ const CardExpenseSummary = () => {
           </div>
         </>
       )}
-      <hr />
     </div>
   );
 };
