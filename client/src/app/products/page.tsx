@@ -1,9 +1,19 @@
 "use client";
-import { useGetProductsQuery } from "@/state/api";
+
+import { useCreateProductMutation, useGetProductsQuery } from "@/state/api";
 import { PlusCircleIcon, SearchIcon } from "lucide-react";
 import { useState } from "react";
 import Header from "@/app/(components)/Header";
-import Rating from "../(components)/Rating";
+import Rating from "@/app/(components)/Rating";
+import CreateProductModal from "./CreateProductModal";
+//import Image from "next/image";
+
+type ProductFormData = {
+  name: string;
+  price: number;
+  stockQuantity: number;
+  rating: number;
+};
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +24,11 @@ const Products = () => {
     isLoading,
     isError,
   } = useGetProductsQuery(searchTerm);
+
+  const [createProduct] = useCreateProductMutation();
+  const handleCreateProduct = async (productData: ProductFormData) => {
+    await createProduct(productData);
+  };
 
   if (isLoading) {
     return <div className="py-4">Loading...</div>;
@@ -29,9 +44,9 @@ const Products = () => {
 
   return (
     <div className="mx-auto pb-5 w-full">
-      {/*Search Bar*/}
+      {/* SEARCH BAR */}
       <div className="mb-6">
-        <div className="flex items-center border-gray-200 rounded">
+        <div className="flex items-center border-2 border-gray-200 rounded">
           <SearchIcon className="w-5 h-5 text-gray-500 m-2" />
           <input
             className="w-full py-2 px-4 rounded bg-white"
@@ -41,7 +56,8 @@ const Products = () => {
           />
         </div>
       </div>
-      {/*Header*/}
+
+      {/* HEADER BAR */}
       <div className="flex justify-between items-center mb-6">
         <Header name="Products" />
         <button
@@ -52,10 +68,11 @@ const Products = () => {
           Product
         </button>
       </div>
-      {/*Body Products List*/}
-      <div className="grid grid-cols-1 sm:grids-cols-2 lg-grid-cols-3 gap-10 justify-between">
+
+      {/* BODY PRODUCTS LIST */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg-grid-cols-3 gap-10 justify-between">
         {isLoading ? (
-          <div>Loading... </div>
+          <div>Loading...</div>
         ) : (
           products?.map((product) => (
             <div
@@ -64,6 +81,15 @@ const Products = () => {
             >
               <div className="flex flex-col items-center">
                 img
+                {/* <Image
+                  src={`https://s3-inventorymanagement.s3.us-east-2.amazonaws.com/product${
+                    Math.floor(Math.random() * 3) + 1
+                  }.png`}
+                  alt={product.name}
+                  width={150}
+                  height={150}
+                  className="mb-3 rounded-2xl w-36 h-36"
+                /> */}
                 <h3 className="text-lg text-gray-900 font-semibold">
                   {product.name}
                 </h3>
@@ -81,6 +107,13 @@ const Products = () => {
           ))
         )}
       </div>
+
+      {/* MODAL */}
+      <CreateProductModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onCreate={handleCreateProduct}
+      />
     </div>
   );
 };
