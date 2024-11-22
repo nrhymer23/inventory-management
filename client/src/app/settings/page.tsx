@@ -5,7 +5,7 @@ type UserSetting = {
   value: string | boolean;
   type: "text" | "toggle";
 };
-
+//
 const mockSettings: UserSetting[] = [
   { label: "Username", value: "john_doe", type: "text" },
   { label: "Email", value: "john.doe@example.com", type: "text" },
