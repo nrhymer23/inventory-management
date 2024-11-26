@@ -13,7 +13,6 @@ const mockSettings: UserSetting[] = [
   { label: "Dark Mode", value: false, type: "toggle" },
   { label: "Language", value: "English", type: "text" },
 ];
-//
 
 const Settings = () => {
   const [userSettings, setUserSettings] = useState<UserSetting[]>(mockSettings);
